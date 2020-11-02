@@ -21,12 +21,17 @@ app.get("/", (req, res) => {
         const weatherData = JSON.parse(data);
         const temp = Math.round(weatherData.main.temp);
         console.log(temp);
-        const weatherDescription = weather[0].description;
-        console.log(weatherDescription)
+        const weatherDescription = weatherData.weather[0].description;
+        const icon = weatherData.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+        res.send(
+          `<h1>The temperature in Las Vegas is ${temp}.</h1> And the condition is ${weatherDescription}.
+          <br>
+          <img src="${iconUrl}" />`
+        );
       });
     }
   );
-  res.send("WE are up and running");
 });
 
 app.listen(3000, () => {
